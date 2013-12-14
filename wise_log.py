@@ -29,7 +29,17 @@ def debug_log(rel_path='../log/debug'):
     return get_wise_logger(formatter, path, 'debug')
 
 
+def operate_log(rel_path='../log/operate'):
+    path = os.path.join(os.path.dirname(__file__), rel_path)
+    formatter = logging.Formatter('%(asctime)s|%(levelname)s|%(message)s')
+    return get_wise_logger(formatter, path, 'debug.operate')
+
+
 if __name__ == '__main__':
     log = debug_log(rel_path='log/debug')
     log.error('test log')
     log.info('info log')
+
+    log2 = operate_log(rel_path='log/operate')
+    log2.error('operate error log')
+    log2.info('operate info log')

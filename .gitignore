@@ -5,6 +5,10 @@
 
 *.ropeproject/*
 
+# wise log
+*log/debug/*
+*log/operate/*
+
 # SVN
 .svn
 

@@ -1,6 +1,9 @@
 # -*- coding: utf-8-*-
 
 import hashlib
+import subprocess
+import os
+import sys
 
 def md5_for_file(filename, block_size=256*128, hr=True):
     '''
@@ -16,7 +19,18 @@ def md5_for_file(filename, block_size=256*128, hr=True):
         return md5.hexdigest()
     return md5.digest()
 
+def open_file(filename):
+    if sys.platform.startswith('Windows'):
+        os.startfile(filename)  # windows
+    elif sys.platform.startswith('darwin'):  # MAC
+        subprocess.call(('open', filename))
+    else:  # linux
+        subprocess.call(('xdg-open', filename))
+
 
 if __name__ == '__main__':
-    print md5_for_file(u'/media/document/lean-read/media/books/迷人的科学风采费曼传.pdf')
+    filename = u'/media/document/lean-read/media/books/迷人的科学风采费曼传.pdf'
     print md5_for_file('/media/document/lean-read/media/books/迷人的科学风采费曼传.pdf')
+    print md5_for_file(filename)
+    open_file(filename)
+    

@@ -1,9 +1,16 @@
 # -*- coding: utf-8-*-
-
+import time
 import hashlib
 import subprocess
 import os
 import sys
+
+def timestamp(for_name=False):
+    if for_name:
+        fmt = '%Y%m%d_%H%M%S'
+    else:
+        fmt = '%Y-%m-%d %H:%M:%S'
+    return time.strftime(fmt)
 
 def md5_for_file(filename, block_size=256*128, hr=True):
     '''
@@ -21,11 +28,15 @@ def md5_for_file(filename, block_size=256*128, hr=True):
 
 def open_file(filename):
     if sys.platform.startswith('Windows'):
-        os.startfile(filename)  # windows
-    elif sys.platform.startswith('darwin'):  # MAC
+        platform = 'windows'
+        os.startfile(filename)
+    elif sys.platform.startswith('darwin'):
+        platform = 'mac'
         subprocess.call(('open', filename))
-    else:  # linux
+    else:
+        platform = 'linux'
         subprocess.call(('xdg-open', filename))
+    return platform
 
 
 if __name__ == '__main__':
@@ -34,3 +45,5 @@ if __name__ == '__main__':
     print md5_for_file(filename)
     open_file(filename)
     
+
+

@@ -27,23 +27,16 @@ def md5_for_file(filename, block_size=256*128, hr=True):
     return md5.digest()
 
 def open_file(filename):
-    if sys.platform.startswith('Windows'):
-        platform = 'windows'
-        os.startfile(filename)
-    elif sys.platform.startswith('darwin'):
-        platform = 'mac'
-        subprocess.call(('open', filename))
-    else:
-        platform = 'linux'
-        subprocess.call(('xdg-open', filename))
-    return platform
+    platform_cmd = {
+            'win32': 'start',  # win7 32bit, win7 64bit
+            'cygwin': 'start',  # cygwin
+            'linux2': 'xdg-open',  # ubuntu 12.04 64bit
+            'darwin': 'open',  # Mac
+            }
+    subprocess.call((platform_cmd.get(sys.platform, 'xdg-open'), filename))
 
 
 if __name__ == '__main__':
-    filename = u'/media/document/lean-read/media/books/迷人的科学风采费曼传.pdf'
-    print md5_for_file('/media/document/lean-read/media/books/迷人的科学风采费曼传.pdf')
+    filename = u'hello.pdf'
     print md5_for_file(filename)
     open_file(filename)
-    
-
-

@@ -33,7 +33,10 @@ def open_file(filename):
             'linux2': 'xdg-open',  # ubuntu 12.04 64bit
             'darwin': 'open',  # Mac
             }
-    subprocess.call((platform_cmd.get(sys.platform, 'xdg-open'), filename))
+    if sys.platform.startswith('win'):  # windows
+        os.startfile(filename)
+    else:
+        subprocess.call((platform_cmd.get(sys.platform, 'xdg-open'), filename))
 
 
 if __name__ == '__main__':

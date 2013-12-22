@@ -29,8 +29,9 @@ def debug_log(rel_path='../log/debug'):
     return get_wise_logger(formatter, path, 'debug')
 
 
-def operate_log(rel_path='../log/operate'):
-    path = os.path.join(os.path.dirname(__file__), rel_path)
+def operate_log(path=None):
+    if path is None:
+        path = os.path.join(os.path.dirname(__file__), '../log/operate')
     formatter = logging.Formatter('%(asctime)s|%(levelname)s|%(message)s')
     return get_wise_logger(formatter, path, 'debug.operate')
 

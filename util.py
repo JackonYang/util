@@ -39,6 +39,11 @@ def open_file(filename):
         subprocess.call((platform_cmd.get(sys.platform, 'xdg-open'), filename))
 
 
+def is_hiden(filename):
+    return filename.startswith('.')
+
+
+
 if __name__ == '__main__':
     filename = u'hello.pdf'
     print md5_for_file(filename)

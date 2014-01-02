@@ -60,7 +60,7 @@ def ipath(src_path, file_hdlr, file_ext='.py', ignore=None):
         abs_path = os.path.join(src_path, path_name)
         if os.path.isdir(abs_path):
             file_count += ipath(abs_path, file_hdlr, file_ext, ignore)
-        elif abs_path.endswith(file_ext):
+        elif abs_path.lower().endswith(file_ext.lower()):
             file_count += int(file_hdlr(abs_path))
     return file_count
 
@@ -86,4 +86,4 @@ if __name__ == '__main__':
     def demo_file(fname):
         print 'hello %s' % fname
         return True
-    print ipath('..', demo_file, ignore='.git, .ropeproject')
+    print ipath('..', demo_file, file_ext='.Py', ignore='.git, .ropeproject')
